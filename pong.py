@@ -32,6 +32,25 @@ class Game(arcade.Window):
         
     def on_update(self, delta_time: float):
         self.ball.move()
+        self.player2.move(self, self.ball)
+
+        if self.ball.center_y < 30 or self.ball.center_y > self.height - 30 :
+            self.ball.change_y *= -1
+
+        if arcade.check_for_collision(self.player1, self.ball) or arcade.check_for_collision(self.player2, self.ball):
+            self.ball.change_x *= -1
+
+        if self.ball.center_x < 0:
+            self.player2.score += 1
+            del self.ball
+            self.ball = Ball(self)
+
+        if self.ball.center_x > self.width:
+            self.player1.score += 1
+            del self.ball
+            self.ball = Ball(self)
+
+        
 
 game = Game()
 arcade.run()
