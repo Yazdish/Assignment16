@@ -19,30 +19,15 @@ class Game(arcade.Window):
         arcade.draw_rectangle_outline(self.width // 2, self.height // 2, self.width - 30, self.height - 30, arcade.color.WHITE, border_width= 10)            
         arcade.draw_line(self.width // 2, 30, self.width // 2, self.height - 30, arcade.color.WHITE, line_width= 10)
         arcade.draw_circle_filled(self.width // 2, self.height // 2, 15, arcade.color.WHITE)
-        arcade.draw_text(
-            self.player1.score,
-            self.width // 4,
-            self.height - 60,
-            arcade.color.WHITE,
-            font_size=25,
-        )
-        
-        arcade.draw_text(
-            self.player2.score,
-            self.width - self.width // 4,
-            self.height - 60,
-            arcade.color.WHITE,
-            font_size=25,
-        )
-            
+        arcade.draw_text(self.player1.score, self.width // 4, self.height - 60, arcade.color.WHITE, font_size=25)
+        arcade.draw_text(self.player2.score, self.width - self.width // 4, self.height - 60, arcade.color.WHITE, font_size=25)
         self.player1.draw()
         self.player2.draw()
         self.ball.draw()
             
         arcade.finish_render()
 
-    def on_mouse_motion(self, x: int, y: int, dx: int, dy: int):
-        # self.player1.center_x = x
+    def on_mouse_motion(self, y):
         if self.player1.height < y < self.height - self.player1.height:
             self.player1.center_y = y
         
@@ -65,8 +50,6 @@ class Game(arcade.Window):
             self.player1.score += 1
             del self.ball
             self.ball = Ball(self)
-
-        
-
+            
 game = Game()
 arcade.run()
